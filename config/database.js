@@ -6,7 +6,6 @@ const pool = mysql.createPool({
     password: 'fitnessDB2026',
     database: 'fitness_app',
     port: 3306,
-
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
