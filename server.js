@@ -4,11 +4,13 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const loginRoutes = require('./routes/login');
+const signUpRoutes = require('./routes/sign_up');
 
 app.use(express.json());
 
 // routes
 app.use('/api', loginRoutes);
+app.use('/api', signUpRoutes);
 
 app.get('/', (req, res) => {
     res.json({message: 'fitness API is running'});
