@@ -16,7 +16,7 @@ router.post('/sign_up', async (req, res) => {
     try {
 
         // Check if username or email already exists
-        const [existingUsers] = await pool.query('SELECT id FROM users WHERE username = ? OR email = ?',[username, email]);
+        const [existingUsers] = await pool.query('SELECT user_id FROM users WHERE username = ? OR email = ?',[username, email]);
 
         if (existingUsers.length > 0) {return res.status(409).json({error: 'Username or email already exists'});}
 
@@ -24,7 +24,7 @@ router.post('/sign_up', async (req, res) => {
         const passwordHash = await bcrypt.hash(password, 10);
 
         // Create user
-        const [results] = await pool.query('CALL create_user(?, ?, ?, ?)',[name, username, email, passwordHash]);
+        const [results] = await pool.query('CALL create_user(?, ?, ?)',[ username, email, passwordHash]);
 
         const userId = results[0][0].id;
 
@@ -32,7 +32,6 @@ router.post('/sign_up', async (req, res) => {
             message: 'User created successfully',
             user: {
                 id: userId,
-                name,
                 username,
                 email
             }
