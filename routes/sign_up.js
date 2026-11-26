@@ -7,9 +7,9 @@ const { pool } = require('../config/database');
 
 router.post('/sign_up', async (req, res) => {
 
-    const { name, username, email, password } = req.body;
+    const {username, email, password } = req.body;
 
-    if (!name || !username || !email || !password) {
+    if (!username || !email || !password) {
         return res.status(400).json({error: 'All fields are required'});
     }
 
